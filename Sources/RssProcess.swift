@@ -25,6 +25,8 @@ public enum RssProcessError: Error {
 
 open class RssChannel {
     
+    static var dateFormatString = "EEE, dd MMM yyyy HH:mm:ss ZZZ"
+    
     open class ImageInfo {
         
         open var rawXml: AEXMLElement?
@@ -106,7 +108,7 @@ open class RssChannel {
             self.comments = itemXml["comments"].value.flatMap({ URL(string: $0) })
             self.enclosure = itemXml["enclosure"].first.flatMap({ try? Enclosure(enclosureXml: $0) })
             if let dateString = itemXml["pubDate"].value {
-                self.pubDate = Date(string: dateString, format: "EEE, dd MMM yyyy HH:mm:ss ZZZ", locale: "en_US_POSIX")!
+                self.pubDate = try? Date(string: dateString, format: RssChannel.dateFormatString, locale: "en_US_POSIX")
             }
         }
         
