@@ -42,7 +42,7 @@ open class RssChannel {
         }
         
         public convenience init(channelImageXml: AEXMLElement) throws {
-            guard let title = channelImageXml["title"].value,
+            guard let title = channelImageXml["title"].value?.clean(),
                 let linkString = channelImageXml["link"].value, let link = URL(string: linkString),
                 let urlString = channelImageXml["url"].value, let url = URL(string: urlString) else {
                     throw RssProcessError.missingParameters
@@ -87,6 +87,7 @@ open class RssChannel {
         open var link: URL
         
         open var author: String?
+        open var category: String?
         open var comments: URL?
         open var enclosure: Enclosure?
         open var pubDate: Date?
@@ -98,13 +99,14 @@ open class RssChannel {
         }
         
         public convenience init(itemXml: AEXMLElement) throws {
-            guard let title = itemXml["title"].value, let description = itemXml["description"].value,
+            guard let title = itemXml["title"].value?.clean(), let description = itemXml["description"].value?.clean(),
                 let linkString = itemXml["link"].value, let link = URL(string: linkString) else {
                     throw RssProcessError.missingParameters
             }
             self.init(title: title, description: description, link: link)
             self.rawXml = itemXml
-            self.author = itemXml["author"].value
+            self.author = itemXml["author"].value?.clean()
+            self.category = itemXml["category"].value?.clean()
             self.comments = itemXml["comments"].value.flatMap({ URL(string: $0) })
             self.enclosure = itemXml["enclosure"].first.flatMap({ try? Enclosure(enclosureXml: $0) })
             if let dateString = itemXml["pubDate"].value {
@@ -139,7 +141,7 @@ open class RssChannel {
             throw RssProcessError.emptyResponse
         }
         
-        guard let title = channelXml["title"].value,
+        guard let title = channelXml["title"].value?.clean(),
             let linkString = channelXml["link"].value, let link = URL(string: linkString) else {
                 throw RssProcessError.missingParameters
         }
@@ -147,9 +149,9 @@ open class RssChannel {
         
         self.init(title: title, description: description, link: link)
         self.rawXml    = channelXml
-        self.category  = channelXml["category"].value
-        self.copyright = channelXml["copyright"].value
-        self.language  = channelXml["language"].value
+        self.category  = channelXml["category"].value?.clean()
+        self.copyright = channelXml["copyright"].value?.clean()
+        self.language  = channelXml["language"].value?.clean()
         self.imageInfo = channelXml["image"].first.flatMap({ try? ImageInfo(channelImageXml: $0) })
         self.items     = try channelXml["item"].all?.flatMap({ try Item(itemXml: $0) }) ?? []
     }
