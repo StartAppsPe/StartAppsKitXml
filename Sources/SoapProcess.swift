@@ -59,7 +59,7 @@ open class SoapLoadAction: ProcessLoadAction<AEXMLDocument, AEXMLElement> {
         // Create authentication data
         let authData  = "learning space:waswas".data(using: String.Encoding.utf8)!
         let authValue = "Basic \(authData.base64EncodedString(options: []))"
-        print(owner: "LoadAction[SOAP]", items: "AuthValue: \(authValue)", level: .verbose)
+        Log.verbose("AuthValue: \(authValue)")
         
         // Create post body
         let serviceNameL = serviceName.lowercasedFirst()
@@ -67,7 +67,7 @@ open class SoapLoadAction: ProcessLoadAction<AEXMLDocument, AEXMLElement> {
         postBody += "<soapenv:Header/><soapenv:Body><web:\(serviceNameL)>"
         postBody += PostObject.process(postObjects: postObjects)
         postBody += "</web:\(serviceNameL)></soapenv:Body></soapenv:Envelope>"
-        print(owner: "LoadAction[SOAP]", items: "Posting body = \(postBody)", level: .verbose)
+        Log.verbose("Posting body = \(postBody)")
         
         // Create request
         let request = NSMutableURLRequest(url: serviceUrl)

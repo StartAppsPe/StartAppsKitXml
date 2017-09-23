@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "AEXML",
+        "repositoryURL": "https://github.com/tadija/AEXML.git",
+        "state": {
+          "branch": null,
+          "revision": "2981eccd86a69ea12a7f71a4c6b4d5177c2972a9",
+          "version": "4.1.0"
+        }
+      },
+      {
+        "package": "StartAppsKitExtensions",
+        "repositoryURL": "https://github.com/StartAppsPe/StartAppsKitExtensions.git",
+        "state": {
+          "branch": null,
+          "revision": "56a28baf77a94558de1398a6e6dac842442d711d",
+          "version": "2.0.6"
+        }
+      },
+      {
+        "package": "StartAppsKitLoadAction",
+        "repositoryURL": "https://github.com/StartAppsPe/StartAppsKitLoadAction.git",
+        "state": {
+          "branch": null,
+          "revision": "66f5aeb9520c8f958175d50bdefb39fba3061ca4",
+          "version": "2.0.0"
+        }
+      },
+      {
+        "package": "StartAppsKitLogger",
+        "repositoryURL": "https://github.com/StartAppsPe/StartAppsKitLogger.git",
+        "state": {
+          "branch": null,
+          "revision": "c02ebb0ddbff51972ac40d39b4f33677ba403bd6",
+          "version": "2.1.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
