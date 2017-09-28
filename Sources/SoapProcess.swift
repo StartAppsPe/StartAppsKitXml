@@ -91,8 +91,8 @@ open class SoapLoadAction: ProcessLoadAction<AEXMLDocument, AEXMLElement> {
     public init(
         serviceUrl:  URL,
         serviceName: String,
-        postObjects: [PostObject],
-        dummy:       (() -> ())? = nil)
+        postObjects: [PostObject]
+        )
     {
         self.serviceUrl  = serviceUrl
         self.serviceName = serviceName
