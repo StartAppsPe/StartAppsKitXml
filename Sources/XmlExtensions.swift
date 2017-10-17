@@ -10,34 +10,43 @@ import Foundation
 import AEXML
 
 extension AEXMLElement {
-    func getChild(_ key: String) throws -> AEXMLElement {
+    
+    public func getChild(_ key: String) throws -> AEXMLElement {
         return try self[key].first.tryUnwrap(errorMessage: "Valor \(key) no encontrado")
     }
-    func getChildren(_ key: String) -> [AEXMLElement] {
+    
+    public func getChildren(_ key: String) -> [AEXMLElement] {
         return self[key].children
     }
-    func getString(_ key: String, minSize: Int = 1) throws -> String {
+    
+    public func getString(_ key: String, minSize: Int = 1) throws -> String {
         let stringValue = try self[key].value.tryUnwrap(errorMessage: "Valor \(key) no encontrado")
         return try stringValue.cleaned(minSize: minSize).tryUnwrap(errorMessage: "Valor \(key) vacío")
     }
-    func getStringOptional(_ key: String, minSize: Int = 1) -> String? {
+    
+    public func getStringOptional(_ key: String, minSize: Int = 1) -> String? {
         return self[key].value?.cleaned(minSize: minSize)
     }
-    func getInt(_ key: String) throws -> Int {
+    
+    public func getInt(_ key: String) throws -> Int {
         let stringValue = try getString(key)
         return try Int(stringValue).tryUnwrap(errorMessage: "Valor \(key) no es numérico")
     }
-    func getIntOptional(_ key: String) -> Int? {
+    
+    public func getIntOptional(_ key: String) -> Int? {
         if let stringValue = getStringOptional(key) {
             return Int(stringValue)
         }
         return nil
     }
-    func getNumber(_ key: String) throws -> NSNumber {
+    
+    public func getNumber(_ key: String) throws -> NSNumber {
         return try getInt(key) as NSNumber
     }
-    func getNumberOptional(_ key: String) -> NSNumber? {
+    
+    public func getNumberOptional(_ key: String) -> NSNumber? {
         return getIntOptional(key) as NSNumber?
     }
+    
 }
 
