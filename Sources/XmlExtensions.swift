@@ -19,6 +19,10 @@ extension AEXMLElement {
         return self[key].children
     }
     
+    public func getAll(_ key: String) -> [AEXMLElement] {
+        return self[key].all ?? []
+    }
+    
     public func getString(_ key: String, minSize: Int = 1) throws -> String {
         let stringValue = try self[key].value.tryUnwrap(errorMessage: "Valor \(key) no encontrado")
         return try stringValue.cleaned(minSize: minSize).tryUnwrap(errorMessage: "Valor \(key) vacío")
