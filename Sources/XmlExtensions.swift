@@ -34,7 +34,7 @@ extension AEXMLElement {
     
     public func getInt(_ key: String) throws -> Int {
         let stringValue = try getString(key)
-        return try Int(stringValue).tryUnwrap(errorMessage: "Valor \(key) no es numérico")
+        return try Int(stringValue).tryUnwrap(errorMessage: "Valor \(key) no es número entero")
     }
     
     public func getIntOptional(_ key: String) -> Int? {
@@ -44,12 +44,32 @@ extension AEXMLElement {
         return nil
     }
     
+    public func getDouble(_ key: String) throws -> Double {
+        let stringValue = try getString(key)
+        return try Double(stringValue).tryUnwrap(errorMessage: "Valor \(key) no es numérico")
+    }
+    
+    public func getDoubleOptional(_ key: String) -> Double? {
+        if let stringValue = getStringOptional(key) {
+            return Double(stringValue)
+        }
+        return nil
+    }
+    
     public func getNumber(_ key: String) throws -> NSNumber {
-        return try getInt(key) as NSNumber
+        return try getDouble(key) as NSNumber
     }
     
     public func getNumberOptional(_ key: String) -> NSNumber? {
-        return getIntOptional(key) as NSNumber?
+        return getDoubleOptional(key) as NSNumber?
+    }
+    
+    public func getDecimalNumber(_ key: String) throws -> NSDecimalNumber {
+        return try getDouble(key) as NSDecimalNumber
+    }
+    
+    public func getDecimalNumberOptional(_ key: String) -> NSDecimalNumber? {
+        return getDoubleOptional(key) as NSDecimalNumber?
     }
     
 }
