@@ -64,13 +64,5 @@ extension AEXMLElement {
         return getDoubleOptional(key) as NSNumber?
     }
     
-    public func getDecimalNumber(_ key: String) throws -> NSDecimalNumber {
-        return try getDouble(key) as NSDecimalNumber
-    }
-    
-    public func getDecimalNumberOptional(_ key: String) -> NSDecimalNumber? {
-        return getDoubleOptional(key) as NSDecimalNumber?
-    }
-    
 }
 
